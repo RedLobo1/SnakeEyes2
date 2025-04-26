@@ -11,6 +11,8 @@ public class LoveMeter : MonoBehaviour
     [SerializeField] private float increaseValue = 10f;
     [SerializeField] private float decreaseValue = 5f;
 
+    [SerializeField] private FadeInOut _fade;
+
     private void Awake()
     {
         Instance = this;
@@ -60,10 +62,12 @@ public class LoveMeter : MonoBehaviour
         if (meterSlider.value <= 0f)
         {
             Debug.Log("Lose");
+            _fade.TriggerFadeIn();
         }
         else if (meterSlider.value >= meterSlider.maxValue)
         {
             Debug.Log("Win!");
+            _fade.TriggerFadeIn();
         }
     }
 }
