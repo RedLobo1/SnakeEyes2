@@ -38,6 +38,7 @@ public class Score : MonoBehaviour
             _isStarted = true;
         }
 
+
         if (!_isStarted) return;
 
         if (Input.GetKeyDown(KeyCode.Q))
