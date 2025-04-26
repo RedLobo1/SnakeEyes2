@@ -68,7 +68,12 @@ public class Score : MonoBehaviour
                     if (_isOldThrow) return;
 
                     _isOldThrow = true;
-                    LoveMeter.Instance.DecreaseMeter();
+
+                    if (LoveMeter.Instance != null)
+                    {
+                        LoveMeter.Instance.DecreaseMeter();
+                    }
+                    
                 }
             }
             else
@@ -89,7 +94,10 @@ public class Score : MonoBehaviour
                     if (!_isOldThrow)
                     {
                         _isOldThrow = true;
-                        LoveMeter.Instance.DecreaseMeter();
+                        if (LoveMeter.Instance != null)
+                        {
+                            LoveMeter.Instance.DecreaseMeter();
+                        }
                     }
 
                     
@@ -112,7 +120,10 @@ public class Score : MonoBehaviour
             
             }
 
-            LoveMeter.Instance.IncreaseMeter();
+            if (LoveMeter.Instance != null)
+            {
+                LoveMeter.Instance.IncreaseMeter();
+            }
 
             WinFeedback?.PlayFeedbacks();
             isSpawned = true;
