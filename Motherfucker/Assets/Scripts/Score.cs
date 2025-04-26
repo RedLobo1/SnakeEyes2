@@ -22,6 +22,10 @@ public class Score : MonoBehaviour
     public MMFeedbacks WinFeedback;
 
     bool isSpawned = false;
+
+    bool _isOldThrow = true;
+
+    bool _isStarted = false;
     //private void Awake()
     //{
     //    dice = FindObjectOfType<DiceRoll>();
@@ -29,11 +33,26 @@ public class Score : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _isStarted = true;
+        }
+
+        if (!_isStarted) return;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             
             // Reload the active scene
             SceneManager.LoadScene(0);
+        }
+
+        if (Dice.GetComponent<Rigidbody>().velocity != Vector3.zero
+            && Dice2.GetComponent<Rigidbody>().velocity != Vector3.zero)
+        {
+            _isOldThrow = false;
+
+
         }
 
         if (Dice != null)
@@ -42,6 +61,14 @@ public class Score : MonoBehaviour
             {
                 scoreText.gameObject.SetActive(true);
                 scoreText.text = Dice.diceFaceNum.ToString();
+
+                if (scoreText2.gameObject.activeSelf)
+                {
+                    if (_isOldThrow) return;
+
+                    _isOldThrow = true;
+                    LoveMeter.Instance.DecreaseMeter();
+                }
             }
             else
             {
@@ -55,6 +82,17 @@ public class Score : MonoBehaviour
             {
                 scoreText2.gameObject.SetActive(true);
                 scoreText2.text = Dice2.diceFaceNum.ToString();
+
+                if (scoreText.gameObject.activeSelf)
+                {
+                    if (!_isOldThrow)
+                    {
+                        _isOldThrow = true;
+                        LoveMeter.Instance.DecreaseMeter();
+                    }
+
+                    
+                }
             }
             else
             {
@@ -73,6 +111,8 @@ public class Score : MonoBehaviour
             
             }
 
+            LoveMeter.Instance.IncreaseMeter();
+
             WinFeedback?.PlayFeedbacks();
             isSpawned = true;
 
@@ -86,6 +126,8 @@ public class Score : MonoBehaviour
             isSpawned = false;
             DeactivateSnakeEyes();
         }
+
+        
     }
 
     public void DeactivateSnakeEyes()
