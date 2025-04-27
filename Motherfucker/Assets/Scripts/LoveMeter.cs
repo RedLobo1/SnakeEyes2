@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
 
 public class LoveMeter : MonoBehaviour
@@ -40,7 +41,9 @@ public class LoveMeter : MonoBehaviour
 
     public void IncreaseMeter()
     {
-        meterSlider.value += increaseValue;
+        //Debug.Log("-----------------------------------------------------------------------------------------------");
+        //meterSlider.value += increaseValue;
+        StartCoroutine(IncreaseSliderValue());
         text.gameObject.SetActive(true);
         CheckForMood();
         CheckForWinOrLose();
@@ -159,6 +162,26 @@ public class LoveMeter : MonoBehaviour
         while (Time.time - startTime < sliderDecreaseDuration)
         {
             float t = (Time.time - startTime) / sliderDecreaseDuration;
+            meterSlider.value = Mathf.Lerp(startValue, targetValue, t);
+
+            yield return null;
+        }
+
+        meterSlider.value = targetValue;
+        meterSlider.fillRect.GetComponent<Image>().color = originalSliderColor;
+    }
+
+    private IEnumerator IncreaseSliderValue()
+    {
+        float startValue = meterSlider.value;
+        float targetValue = Mathf.Max(0f, meterSlider.value + increaseValue);
+        float startTime = Time.time;
+
+        meterSlider.fillRect.GetComponent<Image>().color = sliderDecreaseColor;
+
+        while (Time.time - startTime < sliderDecreaseDuration*3)
+        {
+            float t = (Time.time - startTime) / (sliderDecreaseDuration*3);
             meterSlider.value = Mathf.Lerp(startValue, targetValue, t);
 
             yield return null;
