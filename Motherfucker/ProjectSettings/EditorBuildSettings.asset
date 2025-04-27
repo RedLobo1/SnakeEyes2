@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
   - enabled: 1
-    path: Assets/Scenes/OneDice.unity
-    guid: fdcfa979ba318c043b63ad88b3772d10
+    path: Assets/Scenes/1Date - thing.unity
+    guid: 47f373a8182733b4da6967462e4e4aa9
+  - enabled: 1
+    path: Assets/Scenes/BadEnding.unity
+    guid: 86b6ba4053a3ce94c81950b5ae9c0207
   m_configObjects: {}
