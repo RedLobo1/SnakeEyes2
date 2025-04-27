@@ -24,6 +24,7 @@ public class LoveMeter : MonoBehaviour
 
     [SerializeField] private float sliderDecreaseDuration = 2f;
     [SerializeField] private Color sliderDecreaseColor = Color.white;
+    [SerializeField] private Animator animator;
     private Color originalSliderColor;
 
     private void Awake()
@@ -49,6 +50,7 @@ public class LoveMeter : MonoBehaviour
         CheckForWinOrLose();
 
         StartCoroutine(ChangeAlphaAndLerp());
+        animator.Play("SnakeEyes");
     }
 
     public void DecreaseMeter()
@@ -59,6 +61,7 @@ public class LoveMeter : MonoBehaviour
         CheckForWinOrLose();
 
         StartCoroutine(ChangeAlphaAndLerp());
+        animator.Play("FaceChange");
     }
 
     private void CheckForMood()
