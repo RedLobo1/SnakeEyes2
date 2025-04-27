@@ -21619,8 +21619,9 @@ GameObject:
   - component: {fileID: 858306770}
   - component: {fileID: 858306772}
   - component: {fileID: 858306771}
+  - component: {fileID: 858306773}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Trisha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21635,8 +21636,8 @@ RectTransform:
   m_GameObject: {fileID: 858306769}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 537}
-  m_LocalScale: {x: 4.0600686, y: 4.0600686, z: 4.0600686}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.23, y: 4.23, z: 4.23}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 992688076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21683,6 +21684,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858306769}
   m_CullTransparentMesh: 1
+--- !u!95 &858306773
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858306769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b9b80422a60d4f84ebbd4dbe535e2f5f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &863347034
 GameObject:
   m_ObjectHideFlags: 0
@@ -24886,6 +24908,7 @@ MonoBehaviour:
   fadeInDuration: 1
   sliderDecreaseDuration: 0.5
   sliderDecreaseColor: {r: 1, g: 1, b: 1, a: 1}
+  animator: {fileID: 1596199552}
 --- !u!1 &1004104610
 GameObject:
   m_ObjectHideFlags: 0
@@ -37200,7 +37223,7 @@ GameObject:
   - component: {fileID: 1596199550}
   - component: {fileID: 1596199552}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Ditty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40856,7 +40879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65, y: -1490}
+  m_AnchoredPosition: {x: -65, y: -1610}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907294088
@@ -40879,10 +40902,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DATE DICE DITTY
+  m_text: DATE  - DICE - DITTY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c9581b0f074374498fe2166d24a660b, type: 2}
-  m_sharedMaterial: {fileID: -8958199728935286697, guid: 4c9581b0f074374498fe2166d24a660b,
+  m_fontAsset: {fileID: 11400000, guid: 0ba8b0b32b8721048bd7e610207b4ee6, type: 2}
+  m_sharedMaterial: {fileID: 7050917537736483203, guid: 0ba8b0b32b8721048bd7e610207b4ee6,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -44374,7 +44397,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 42d16659722cae944bc8147f0fbf41df, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 16e827ff6759e7b46b73bd7245b734de, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.664
   m_Pitch: 1
