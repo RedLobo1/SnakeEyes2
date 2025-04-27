@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +13,18 @@ public class LoveMeter : MonoBehaviour
 
     [SerializeField] private FadeInOut _fade;
 
+    [SerializeField] private Image image1;
+    [SerializeField] private Image image2;
+    [SerializeField] private TextMeshProUGUI text;
+
+    [SerializeField] private float alphaChangeDuration = 2f;
+    [SerializeField] private float lerpDuration = 1f;
+    [SerializeField] private float fadeInDuration = 1f;
+
+    [SerializeField] private float sliderDecreaseDuration = 2f;
+    [SerializeField] private Color sliderDecreaseColor = Color.white;
+    private Color originalSliderColor;
+
     private void Awake()
     {
         Instance = this;
@@ -21,20 +33,29 @@ public class LoveMeter : MonoBehaviour
     private void Start()
     {
         meterSlider.value = meterSlider.maxValue / 2f;
+        originalSliderColor = meterSlider.fillRect.GetComponent<Image>().color;
+        SetImageAlpha(0f); // Images and Text start invisible
+        text.gameObject.SetActive(false);
     }
 
     public void IncreaseMeter()
     {
         meterSlider.value += increaseValue;
+        text.gameObject.SetActive(true);
         CheckForMood();
         CheckForWinOrLose();
+
+        StartCoroutine(ChangeAlphaAndLerp());
     }
 
     public void DecreaseMeter()
     {
-        meterSlider.value -= decreaseValue;
+        StartCoroutine(DecreaseSliderValue());
+        text.gameObject.SetActive(true);
         CheckForMood();
         CheckForWinOrLose();
+
+        StartCoroutine(ChangeAlphaAndLerp());
     }
 
     private void CheckForMood()
@@ -62,12 +83,88 @@ public class LoveMeter : MonoBehaviour
         if (meterSlider.value <= 0f)
         {
             Debug.Log("Lose");
-            _fade.TriggerFadeIn();
+            StartCoroutine(FadeIn());
         }
         else if (meterSlider.value >= meterSlider.maxValue)
         {
             Debug.Log("Win!");
-            _fade.TriggerFadeIn();
+            StartCoroutine(FadeIn());
         }
+    }
+
+    private IEnumerator ChangeAlphaAndLerp()
+    {
+        // Set alpha to 255
+        SetImageAlpha(255f);
+
+        // Wait for 'alphaChangeDuration' seconds before starting the lerp
+        yield return new WaitForSeconds(alphaChangeDuration);
+
+        // Start lerping the alpha values back to 0
+        float startTime = Time.time;
+        while (Time.time - startTime < lerpDuration)
+        {
+            float t = (Time.time - startTime) / lerpDuration;
+            float lerpedAlpha = Mathf.Lerp(255f, 0f, t);
+
+            SetImageAlpha(lerpedAlpha);
+
+            yield return null;
+        }
+
+        // Final alpha after lerp completes
+        SetImageAlpha(0f);
+        text.gameObject.SetActive(false); // Optional: hide text after fade out
+    }
+
+    private void SetImageAlpha(float alpha)
+    {
+        float normalizedAlpha = alpha / 255f;
+
+        // Update images
+        image1.color = new Color(image1.color.r, image1.color.g, image1.color.b, normalizedAlpha);
+        image2.color = new Color(image2.color.r, image2.color.g, image2.color.b, normalizedAlpha);
+
+        // Update text color
+        text.color = new Color(text.color.r, text.color.g, text.color.b, normalizedAlpha);
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float startAlpha = 0f;
+        float targetAlpha = 255f;
+        float startTime = Time.time;
+
+        while (Time.time - startTime < fadeInDuration)
+        {
+            float t = (Time.time - startTime) / fadeInDuration;
+            float lerpedAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+
+            SetImageAlpha(lerpedAlpha);
+
+            yield return null;
+        }
+
+        SetImageAlpha(targetAlpha);
+    }
+
+    private IEnumerator DecreaseSliderValue()
+    {
+        float startValue = meterSlider.value;
+        float targetValue = Mathf.Max(0f, meterSlider.value - decreaseValue);
+        float startTime = Time.time;
+
+        meterSlider.fillRect.GetComponent<Image>().color = sliderDecreaseColor;
+
+        while (Time.time - startTime < sliderDecreaseDuration)
+        {
+            float t = (Time.time - startTime) / sliderDecreaseDuration;
+            meterSlider.value = Mathf.Lerp(startValue, targetValue, t);
+
+            yield return null;
+        }
+
+        meterSlider.value = targetValue;
+        meterSlider.fillRect.GetComponent<Image>().color = originalSliderColor;
     }
 }

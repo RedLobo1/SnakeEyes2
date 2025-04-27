@@ -67,6 +67,6 @@ public class DiceRoll : MonoBehaviour
         InitializeFeedback?.PlayFeedbacks();
         _body = GetComponent<Rigidbody>();
         //_body.isKinematic = true;
-        transform.rotation = new Quaternion(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), 0);
+        //transform.rotation = new Quaternion(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), 0);
     }
 }
