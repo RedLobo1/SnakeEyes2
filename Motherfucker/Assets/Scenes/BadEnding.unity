@@ -18360,7 +18360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fade: {fileID: 524489827}
-  waitBeforeFade: 6
+  waitBeforeFade: 5.5
   sceneNameToLoad: 1Date - thing
 --- !u!1 &1263557452
 GameObject:
