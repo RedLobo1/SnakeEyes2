@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoveMeter : MonoBehaviour
@@ -40,6 +41,11 @@ public class LoveMeter : MonoBehaviour
         text.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        CheckForWinOrLose();
+    }
+
     public void IncreaseMeter()
     {
         //Debug.Log("-----------------------------------------------------------------------------------------------");
@@ -47,7 +53,7 @@ public class LoveMeter : MonoBehaviour
         StartCoroutine(IncreaseSliderValue());
         text.gameObject.SetActive(true);
         CheckForMood();
-        CheckForWinOrLose();
+        
 
         StartCoroutine(ChangeAlphaAndLerp());
         animator.Play("SnakeEyes");
@@ -58,7 +64,7 @@ public class LoveMeter : MonoBehaviour
         StartCoroutine(DecreaseSliderValue());
         text.gameObject.SetActive(true);
         CheckForMood();
-        CheckForWinOrLose();
+        
 
         StartCoroutine(ChangeAlphaAndLerp());
         animator.Play("FaceChange");
@@ -89,13 +95,31 @@ public class LoveMeter : MonoBehaviour
         if (meterSlider.value <= 0f)
         {
             Debug.Log("Lose");
-            StartCoroutine(FadeIn());
+            //StartCoroutine(FadeIn());
+            _fade.TriggerFadeIn();
+            StartCoroutine(WaitAndLose());
         }
         else if (meterSlider.value >= meterSlider.maxValue)
         {
             Debug.Log("Win!");
-            StartCoroutine(FadeIn());
+            //StartCoroutine(FadeIn());
+            _fade.TriggerFadeIn();
+            StartCoroutine(WaitAndWIn());
         }
+    }
+
+    private IEnumerator WaitAndWIn()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        SceneManager.LoadScene("GoodEnding");
+    }
+
+    private IEnumerator WaitAndLose()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        SceneManager.LoadScene("BadEnding");
     }
 
     private IEnumerator ChangeAlphaAndLerp()
